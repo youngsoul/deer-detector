@@ -159,3 +159,11 @@ https://keras.io/api/layers/preprocessing_layers/
 
 https://keras.io/api/layers/preprocessing_layers/image_augmentation/
 
+### Running on a Raspberry PI
+
+Be sure to run the following commands for the RPI to detect the camera:
+
+```shell
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | sudo tee /etc/udev/rules.d/80-movidius.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```

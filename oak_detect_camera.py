@@ -98,7 +98,7 @@ def main():
 
             if frame is not None:
                 # Show the frame from the OAK device
-                cv2.imshow("TF Face Mask", frame)
+                cv2.imshow("Deer Detect", frame)
 
             if cv2.waitKey(1) == ord('q'):
                 break

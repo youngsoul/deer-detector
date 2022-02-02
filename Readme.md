@@ -95,7 +95,7 @@ python detect_video.py --video-file datasets/backyard/movies/test_deer.MOV
 
 We will go over the steps necessary
 
-We will need to add two additional libraries:
+We will need to add three additional libraries:
 
 ```shell
 pip install openvino-dev
@@ -103,7 +103,7 @@ pip install blobconverter
 pip install depthai
 ```
 
-These should be installed as part of the project requirements.
+These should be installed as part of the project requirements, but I wanted to point out these libraries as specfic to DepthAI.
 
 ### Convert Tensorflow Model to OpenVino IR
 https://docs.luxonis.com/en/latest/pages/model_conversion/
@@ -134,6 +134,8 @@ To test the setup with the same video used above.  Execute the following:
 python oak_detect_video.py --video-file datasets/backyard/movies/test_deer.MOV
 ```
 
+Notice how much quicker using the OAK device is than running the model locally.
+
 ### Test with OAK-1 Camera
 
 ```shell
@@ -144,6 +146,12 @@ There is a command line option to specify openvino blob model if it is not in th
 
 
 There are command line options for video file path, and model path.
+
+When deployed to the RaspberryPI and setup in the window, the performance was 'pretty good'.  I had to lower the threshold to be 0.4 and it was dependent upon the positioning of the camera.  If I could have zoomed into the target area, or there was better light, I believe the results would have been much better.
+
+Below you can see the setup in the window with a 0.5 threshold.  The first half detects deer at the 0.5 threshold, and the second half does not.  Note the rounding for display.
+
+![RPI](./media/rpi_results.gif)
 
 ## Things to keep in mind
 

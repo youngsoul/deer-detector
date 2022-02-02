@@ -5,9 +5,11 @@ import argparse
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--openvino-model", required=False, default='./openvino_model/saved_model_openvino_2021.4_6shave.blob')
+    ap.add_argument("--threshold", required=False, default=0.5, type=float)
 
     args = vars(ap.parse_args())
     openvino_model_path = args['openvino_model']
+    pred_threshold = args['threshold']
 
     pipeline = depthai.Pipeline()
 
@@ -89,12 +91,12 @@ def main():
                 # print the results of the prediction
                 pred=pred[0]
                 print(pred)
-                if pred >= 0.5:
+                if pred >= pred_threshold:
                     # print(f"Deer: [{pred}]")
-                    cv2.putText(frame, f"Deer: [{pred:0.1f}]", (20, 75), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 6)
+                    cv2.putText(frame, f"Deer: [{pred:0.1f}]", (5, 75), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 6)
                 else:
                     # print(f"Deer: [{pred}]")
-                    cv2.putText(frame, f"No Deer: [{pred:0.1f}]", (20, 75), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 6)
+                    cv2.putText(frame, f"No Deer: [{pred:0.1f}]", (5, 75), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 6)
 
             if frame is not None:
                 # Show the frame from the OAK device
